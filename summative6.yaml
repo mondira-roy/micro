@@ -1,0 +1,321 @@
+openapi: 3.0.0
+info:
+  title: Team Break U1M6Summative
+  description:
+    Group project on REST web service
+  version: 0.0.1
+servers:
+  - url: 'http://localhost:8080'
+    description: Local dev server
+paths: 
+
+#===============================Customer======================= 
+  /customer:
+    post:
+      summary: Creates a new customer entry with the given information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: A Customer object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid request syntax.
+        '422':
+          description: Incomplete Customer information. Some required fields missing.
+    
+    get:
+      summary: get all customers
+      responses:
+        '200':
+          description: Generate a customer list JSON object.
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Customer'
+    
+  /customer/{customerId}:
+    get:
+      summary: get customer id
+      parameters: 
+        - name: customerId
+          in: path
+          required: true
+          description: id of the customer
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Generate a customer JSON object.
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/Customer'
+               
+    put:
+      summary: Updated the entry for the customer with the given ID.
+      parameters: 
+        - name: customerId
+          in: path
+          required: true
+          description: ID of the customer you would like to update.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: customer successfully updated.
+        '422':
+          description: customer ID on path must match the ID in the Customer object.
+    
+    delete:
+      summary: Deletes the entry for the Customer with the given ID.
+      parameters: 
+        - name: customerId
+          in: path
+          required: true
+          description: ID of the Customer you would like to delete.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Customer successfully deleted.     
+          
+#===============================Item=======================      
+  /item:
+    post:
+      summary: Creates a new Item entry with the given information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+      responses:
+        '201':
+          description: A Item object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '400':
+          description: Invalid request syntax.
+        '422':
+          description: Incomplete Customer information. Some required fields missing.
+    
+    get:
+      summary: get all items
+      responses:
+        '200':
+          description: Generate a item list JSON object.
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Item'
+    
+  /item/{itemId}:
+    get:
+      summary: get item id
+      parameters: 
+        - name: itemId
+          in: path
+          required: true
+          description: id of the item
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Generate a item JSON object.
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/Customer'
+               
+    put:
+      summary: Updated the entry for the item with the given ID.
+      parameters: 
+        - name: itemId
+          in: path
+          required: true
+          description: ID of the item you would like to update.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+      responses:
+        '200':
+          description: Item successfully updated.
+        '422':
+          description: Item ID on path must match the ID in the item object.
+    
+    delete:
+      summary: Deletes the entry for the item with the given ID.
+      parameters: 
+        - name: itemId
+          in: path
+          required: true
+          description: ID of the item you would like to delete.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: item successfully deleted.      
+      
+#==========invoice==========
+
+  /invoice:
+    post:
+      summary: Creates a new invoice entry with the given information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invoice'
+      responses:
+        '201':
+          description: A invoice object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        '400':
+          description: Invalid request syntax.
+        '422':
+          description: Incomplete invoice information. Some required fields missing.
+    
+  /invoice/{invoiceId}:
+    delete:
+      summary: Deletes the entry for the invoice  with the given ID.
+      parameters: 
+        - name: invoiceId
+          in: path
+          required: true
+          description: ID of the invoice you would like to delete.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: invoice successfully deleted.  
+
+  /invoice/{customerId}:
+    get:
+      summary: get invoice id
+      parameters: 
+        - name: customerId
+          in: path
+          required: true
+          description: id of the customer of the invoice
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Generate a invoice list JSON object.
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Invoice'
+        
+          
+#==========Schema==============
+
+components:
+  schemas:
+    Customer: 
+      properties:
+        customerId:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        company:
+          type: string
+        phone:
+          type: string
+      required:
+          - customerId
+          - firstName
+          - lastName
+          - email
+          - company
+          - phone
+
+    Item: 
+      properties:
+        itemId:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        dailyRate:
+          type: number
+      required:
+          - itemId
+          - name
+          - description
+          - dailyRate
+          
+    Invoice: 
+      properties:
+        invoiceId:
+          type: integer
+        customerId:
+          type: integer
+        orderDate:
+          type: object #date
+        pickUpDate:
+          type: object #date
+        returnDate:
+          type: object #date
+        lateFee:
+          type: number
+      required:
+        - invoiceId
+        - customerId
+        - orderDate
+        - pickUpDate
+        - returnDate
+        - lateFee
+
