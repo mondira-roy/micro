@@ -2,11 +2,13 @@ package com.company.TeamBreakU1M6Summative.dao;
 
 import com.company.TeamBreakU1M6Summative.model.Invoice;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
 
     private final String CREATE_INVOICE_SQL = "insert into invoice(customer_id, order_date, pickup_date, return_date, late_fee)" +

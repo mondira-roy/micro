@@ -11,7 +11,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class ItemDaoJdbcTemplateImpl {
+public class ItemDaoJdbcTemplateImplTest {
 
     @Autowired
     ItemDao itemDao;
@@ -31,7 +31,7 @@ public class ItemDaoJdbcTemplateImpl {
             itemDao.deleteItem(i.getItemId());
         }
 
-        List<Item> it
+//        List<Item> it
     }
 }
 
