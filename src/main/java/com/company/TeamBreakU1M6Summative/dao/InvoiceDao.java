@@ -10,7 +10,7 @@ public interface InvoiceDao {
     Invoice createInvoice(Invoice invoiceItem);
 
     //    // delete invoiceItem when invoice is deleted
-        void deleteInvoice(int invoiceItemId);
+        void deleteInvoice(int invoiceId);
 
     //    // update invoiceItem when invoice is updated
     void updateInvoice(Invoice invoiceItem);
