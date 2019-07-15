@@ -46,14 +46,14 @@ public class ItemJdbcTemplateImpl implements ItemDao {
 
         jdbcTemplate.update(
                 INSERT_ITEM_SQL,
-                item.getId(),
+                item.getItemId(),
                 item.getName(),
                 item.getDescription(),
                 item.getDailyRate());
 
         int id = jdbcTemplate.queryForObject("select LAST_INSERT_ID()", Integer.class);
 
-        item.setId(id);
+        item.setItemId(id);
 
         return item;
     }
@@ -89,7 +89,7 @@ public class ItemJdbcTemplateImpl implements ItemDao {
 
         jdbcTemplate.update(
                 UPDATE_ITEM_SQL,
-                item.getId(),
+                item.getItemId(),
                 item.getName(),
                 item.getDescription(),
                 item.getDailyRate());
@@ -104,7 +104,7 @@ public class ItemJdbcTemplateImpl implements ItemDao {
 
    private Item mapRowToItem(ResultSet rs, int rowNum) throws SQLException{
         Item item = new Item();
-        item.setId(rs.getInt("item_id"));
+        item.setItemId(rs.getInt("item_id"));
         item.setName(rs.getString("name"));
         item.setDescription(rs.getString("description"));
         item.setDailyRate(rs.getInt("daily_rate"));
