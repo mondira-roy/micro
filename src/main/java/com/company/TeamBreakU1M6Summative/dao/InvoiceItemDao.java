@@ -17,4 +17,6 @@ public interface InvoiceItemDao {
     // read all invoiceItem
     List<InvoiceItem> getAllInvoiceItem();
 
+    List<InvoiceItem> getInvoiceItemByInvoiceId(int id);
+
 }
