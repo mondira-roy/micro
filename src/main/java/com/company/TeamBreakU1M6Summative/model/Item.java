@@ -7,7 +7,7 @@ public class Item {
     private int itemId;
     private String name;
     private String description;
-    private int dailyRate;
+    private double dailyRate;
 
 
     public int getItemId() {
@@ -34,11 +34,11 @@ public class Item {
         this.description = description;
     }
 
-    public int getDailyRate() {
+    public double getDailyRate() {
         return dailyRate;
     }
 
-    public void setDailyRate(int dailyRate) {
+    public void setDailyRate(double dailyRate) {
         this.dailyRate = dailyRate;
     }
 
