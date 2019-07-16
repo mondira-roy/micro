@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceLayer {
 
@@ -37,7 +38,7 @@ public class ServiceLayer {
     @Transactional
     public InvoiceViewModel saveInvoice(InvoiceViewModel viewModel) {
 
-        // Persist Album
+        // Persist Invoice
         Invoice invoice = new Invoice();
 //        invoice.setInvoiceId(viewModel.getInvoiceId());
         invoice.setCustomerId(viewModel.getCustomer().getCustomerId());
@@ -48,111 +49,124 @@ public class ServiceLayer {
         invoice = invoiceDao.createInvoice(invoice);
         viewModel.setInvoiceId(invoice.getInvoiceId());
 
-        // Add Album Id to Tracks and Persist Tracks
-        List<Track> tracks = viewModel.getTracks();
+//         Add Album Id to Tracks and Persist Tracks
+        List<InvoiceItem> invItemList = viewModel.getInvoiceItemsList();
 
-        tracks.stream()
+        List<InvoiceItem> newList = new ArrayList<>();
+
+        invItemList.stream()
                 .forEach(t ->
                 {
-                    t.setAlbumId(viewModel.getId());
-                    trackDao.addTrack(t);
+                    t.setInvoiceId(viewModel.getInvoiceId());
+                    t = invoiceItemDao.createInvoiceItem(t);
                 });
 
-        tracks = trackDao.getTracksByAlbum(viewModel.getId());
-        viewModel.setTracks(tracks);
+//        invItemList = invoiceItemDao.getIn(viewModel.getId());
+////        viewModel.setTracks(tracks);
+
+        viewModel.setInvoiceItemsList(invItemList);
 
         return viewModel;
     }
 
-    public AlbumViewModel findAlbum(int id) {
+    public InvoiceViewModel findInvoice(int id) {
 
         // Get the album object first
-        Album album = albumDao.getAlbum(id);
+        Invoice invoice = invoiceDao.getInvoiceById(id);
 
-        return buildAlbumViewModel(album);
+        return buildInvoiceViewModel(invoice);
 
     }
 
-    public List<AlbumViewModel> findAllAlbums() {
+    public List<InvoiceViewModel> findAllInvoices() {
 
-        List<Album> albumList = albumDao.getAllAlbums();
+        List<Invoice> invoiceList = invoiceDao.getAllInvoice();
 
-        List<AlbumViewModel> avmList = new ArrayList<>();
+        List<InvoiceViewModel> ivmList = new ArrayList<>();
 
-        for (Album album : albumList) {
-            AlbumViewModel avm = buildAlbumViewModel(album);
-            avmList.add(avm);
+        for (Invoice ivm : invoiceList) {
+            InvoiceViewModel invoiceViewModel = buildInvoiceViewModel(ivm);
+            ivmList.add(invoiceViewModel);
         }
 
-        return avmList;
+        return ivmList;
     }
 
     @Transactional
-    public void updateAlbum(AlbumViewModel viewModel) {
+    public void updateInvoice(InvoiceViewModel viewModel) {
 
         // Update the album information
-        Album album = new Album();
-        album.setId(viewModel.getId());
-        album.setArtistId(viewModel.getArtist().getId());
-        album.setLabelId(viewModel.getLabel().getId());
-        album.setListPrice(viewModel.getListPrice());
-        album.setReleaseDate(viewModel.getReleaseDate());
+        Invoice invoice = new Invoice();
 
-        albumDao.updateAlbum(album);
-
-        // We don't know if any track have been removed so delete all associated tracks
-        // and then associate the tracks in the viewModel with the album
-        List<Track> trackList = trackDao.getTracksByAlbum(album.getId());
-        trackList.stream()
-                .forEach(track -> trackDao.deleteTrack(track.getId()));
-
-        List<Track> tracks = viewModel.getTracks();
-        tracks.stream()
-                .forEach(t ->
-                {
-                    t.setAlbumId(viewModel.getId());
-                    t = trackDao.addTrack(t);
-                });
+//        invoice.setCustomerId(viewModel.getCustomer().getCustomerId());
+        invoice.setOrderDate(viewModel.getOrderDate());
+        invoice.setPickupDate(viewModel.getPickupDate());
+        invoice.setReturnDate(viewModel.getReturnDate());
+        invoice.setLateFee(viewModel.getLateFee());
+        invoiceDao.updateInvoice(invoice);
+//
+////
+////        // We don't know if any track have been removed so delete all associated tracks
+////        // and then associate the tracks in the viewModel with the album
+//        List<InvoiceItem> invoiceItemsList = viewModel.getInvoiceItemsList();
+//        invoiceItemsList.stream()
+//                .forEach(invoiceItem -> invoiceItemDao.deleteInvoiceItem(invoiceItem.getInvoiceItemId()));
+//
+//        List<InvoiceItem> tracks = viewModel.getTracks();
+//        tracks.stream()
+//                .forEach(t ->
+//                {
+//                    t.setAlbumId(viewModel.getId());
+//                    t = trackDao.addTrack(t);
+//                });
     }
 
     @Transactional
-    public void removeAlbum(int id) {
+    public void removeInvoice(int id) {
 
         // Remove all associated tracks first
-        List<Track> trackList = trackDao.getTracksByAlbum(id);
+//        List<Track> trackList = trackDao.getTracksByAlbum(id);
+//
+//        trackList.stream()
+//                .forEach(track -> trackDao.deleteTrack(track.getId()));
 
-        trackList.stream()
-                .forEach(track -> trackDao.deleteTrack(track.getId()));
+        // Remove invoice
+        invoiceDao.deleteInvoice(id);
 
-        // Remove album
-        albumDao.deleteAlbum(id);
+    }
 
+    private List<InvoiceViewModel> findInvoiceByCustomer(int id){
+        List<Invoice> invoicesByCustomerId = invoiceDao.getInvoiceByCustomer(id);
+        List<InvoiceViewModel> ivmList = new ArrayList<>();
+        invoicesByCustomerId.stream()
+                .forEach(i ->ivmList.add(buildInvoiceViewModel(i)));
+
+        return ivmList;
     }
 
     // Helper Methods
-    private AlbumViewModel buildAlbumViewModel(Album album) {
+    private InvoiceViewModel buildInvoiceViewModel(Invoice invoice) {
 
         // Get the associated artist
-        Artist artist = artistDao.getArtist(album.getArtistId());
+//        Customer customer = customerDao.getCustomer(invoice.getCustomerId());
 
         // Get the associated label
-        Label label = labelDao.getLabel(album.getLabelId());
+//        Label label = labelDao.getLabel(album.getLabelId());
 
         // Get the tracks associated with the album
-        List<Track> trackList = trackDao.getTracksByAlbum(album.getId());
+//        List<Track> trackList = trackDao.getTracksByAlbum(album.getId());
 
-        // Assemble the AlbumViewModel
-        AlbumViewModel avm = new AlbumViewModel();
-        avm.setId(album.getId());
-        avm.setTitle(album.getTitle());
-        avm.setReleaseDate(album.getReleaseDate());
-        avm.setListPrice(album.getListPrice());
-        avm.setArtist(artist);
-        avm.setLabel(label);
-        avm.setTracks(trackList);
+        // Assemble the InvoiceViewModel
+        InvoiceViewModel invoiceViewModel = new InvoiceViewModel();
+        invoiceViewModel.setInvoiceId(invoice.getInvoiceId());
+        invoiceViewModel.setCustomer(customerDao.getCustomer(invoice.getCustomerId()));
+        invoiceViewModel.setOrderDate(invoice.getOrderDate());
+        invoiceViewModel.setPickupDate(invoice.getPickupDate());
+        invoiceViewModel.setReturnDate(invoice.getReturnDate());
+        invoiceViewModel.setLateFee(invoice.getLateFee());
 
-        // Return the AlbumViewModel
-        return avm;
+        // Return the InvoiceViewModel
+        return invoiceViewModel;
 
     }
 

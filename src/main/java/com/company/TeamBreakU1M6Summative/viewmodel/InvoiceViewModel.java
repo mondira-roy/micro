@@ -1,8 +1,11 @@
 package com.company.TeamBreakU1M6Summative.viewmodel;
 
 import com.company.TeamBreakU1M6Summative.model.Customer;
+import com.company.TeamBreakU1M6Summative.model.InvoiceItem;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class InvoiceViewModel {
@@ -13,6 +16,15 @@ public class InvoiceViewModel {
     private LocalDate pickupDate;
     private LocalDate returnDate;
     private double lateFee;
+    private List<InvoiceItem> invoiceItemsList = new ArrayList<>();
+
+    public List<InvoiceItem> getInvoiceItemsList() {
+        return invoiceItemsList;
+    }
+
+    public void setInvoiceItemsList(List<InvoiceItem> invoiceItemsList) {
+        this.invoiceItemsList = invoiceItemsList;
+    }
 
     public int getInvoiceId() {
         return invoiceId;
