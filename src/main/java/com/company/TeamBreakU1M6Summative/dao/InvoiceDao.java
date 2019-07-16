@@ -21,6 +21,6 @@ public interface InvoiceDao {
     // read all invoiceItem
     List<Invoice> getAllInvoice();
 
-    // returns invoices by customer_id
+    // returns invoice by customer_id
     List<Invoice> getInvoiceByCustomer(int customerId);
 }

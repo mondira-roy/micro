@@ -37,7 +37,7 @@ public class ServiceLayer {
     @Transactional
     public InvoiceViewModel saveInvoice(InvoiceViewModel viewModel) {
 
-        // Persist Album
+        // Persist Invoice
         Invoice invoice = new Invoice();
 //        invoice.setInvoiceId(viewModel.getInvoiceId());
         invoice.setCustomerId(viewModel.getCustomer().getCustomerId());
