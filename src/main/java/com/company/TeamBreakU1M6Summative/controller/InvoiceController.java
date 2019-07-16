@@ -30,8 +30,8 @@ public class InvoiceController {
 
     @GetMapping("/")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Invoice> getAllInvoices() {
-        return serviceLayer.findAllInvoice();
+    public List<InvoiceViewModel> getAllInvoices() {
+        return serviceLayer.findAllInvoices();
     }
 
     @GetMapping("/{id}")
@@ -42,7 +42,7 @@ public class InvoiceController {
             throw new IllegalArgumentException("Invoice Id must be greater than 0.");
         }
 
-        return serviceLayer.findInvoiceById(id);
+        return serviceLayer.findInvoice(id);
 
     }
 
@@ -64,7 +64,7 @@ public class InvoiceController {
             throw new IllegalArgumentException("Invoice Id must be greater than 0.");
         }
 
-        serviceLayer.updateInvoice(invoice);
+        serviceLayer.updateInvoice(invoiceViewModel);
     }
 
     @DeleteMapping("/{id}")
