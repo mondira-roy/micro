@@ -5,6 +5,7 @@ import com.company.TeamBreakU1M6Summative.dao.InvoiceDao;
 import com.company.TeamBreakU1M6Summative.dao.InvoiceItemDao;
 import com.company.TeamBreakU1M6Summative.dao.ItemDao;
 import com.company.TeamBreakU1M6Summative.model.Customer;
+import com.company.TeamBreakU1M6Summative.model.Invoice;
 import com.company.TeamBreakU1M6Summative.model.InvoiceItem;
 import com.company.TeamBreakU1M6Summative.model.Item;
 import com.company.TeamBreakU1M6Summative.viewmodel.InvoiceViewModel;
@@ -34,17 +35,18 @@ public class ServiceLayer {
     // Invoice API
     //
     @Transactional
-    public InvoiceViewModel saveAlbum(InvoiceViewModel viewModel) {
+    public InvoiceViewModel saveInvoice(InvoiceViewModel viewModel) {
 
         // Persist Album
-        Album a = new Album();
-        a.setTitle(viewModel.getTitle());
-        a.setReleaseDate(viewModel.getReleaseDate());
-        a.setListPrice(viewModel.getListPrice());
-        a.setLabelId(viewModel.getLabel().getId());
-        a.setArtistId(viewModel.getArtist().getId());
-        a = albumDao.addAlbum(a);
-        viewModel.setId(a.getId());
+        Invoice invoice = new Invoice();
+//        invoice.setInvoiceId(viewModel.getInvoiceId());
+        invoice.setCustomerId(viewModel.getCustomer().getCustomerId());
+        invoice.setOrderDate(viewModel.getOrderDate());
+        invoice.setPickupDate(viewModel.getPickupDate());
+        invoice.setReturnDate(viewModel.getReturnDate());
+        invoice.setLateFee(viewModel.getLateFee());
+        invoice = invoiceDao.createInvoice(invoice);
+        viewModel.setInvoiceId(invoice.getInvoiceId());
 
         // Add Album Id to Tracks and Persist Tracks
         List<Track> tracks = viewModel.getTracks();
