@@ -4,6 +4,7 @@ package com.company.TeamBreakU1M6Summative.controller;
 import com.company.TeamBreakU1M6Summative.dao.InvoiceDao;
 import com.company.TeamBreakU1M6Summative.dao.InvoiceItemDao;
 import com.company.TeamBreakU1M6Summative.model.Invoice;
+import com.company.TeamBreakU1M6Summative.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class InvoiceController {
 
     @PostMapping("/")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Invoice createInvoice(@Valid @RequestBody Invoice invoice) {
+    public InvoiceViewModel createInvoice(@Valid @RequestBody Invoice invoice) {
         return invoiceDao.createInvoice(invoice);
     }
 
