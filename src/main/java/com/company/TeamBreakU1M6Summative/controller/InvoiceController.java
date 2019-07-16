@@ -11,7 +11,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/invoice")
 public class InvoiceController {
 
     /**
@@ -22,19 +21,19 @@ public class InvoiceController {
     @Autowired
     ServiceLayer serviceLayer;
 
-    @PostMapping("/")
+    @RequestMapping(value=  "/invoice",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public InvoiceViewModel createInvoice(@Valid @RequestBody InvoiceViewModel invoiceViewModel) {
         return serviceLayer.saveInvoice(invoiceViewModel);
     }
 
-    @GetMapping("/")
+    @RequestMapping(value=  "/invoice",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<InvoiceViewModel> getAllInvoices() {
         return serviceLayer.findAllInvoices();
     }
 
-    @GetMapping("/{id}")
+    @RequestMapping(value=  "/invoice/{id}",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public InvoiceViewModel getInvoiceById(@PathVariable int id) {
 
@@ -46,7 +45,7 @@ public class InvoiceController {
 
     }
 
-    @GetMapping("/customer/{id}")
+    @RequestMapping(value=  "/invoice/customer/{id}",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<InvoiceViewModel> getInvoiceByCustomerId(@PathVariable int id) {
 
@@ -57,7 +56,7 @@ public class InvoiceController {
         return serviceLayer.findInvoiceByCustomer(id);
     }
 
-    @PutMapping("/{id}")
+    @RequestMapping(value=  "/invoice/{id}",method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updateInvoice(@PathVariable int id, @Valid @RequestBody InvoiceViewModel invoiceViewModel) {
         if (id < 1) {
@@ -67,7 +66,8 @@ public class InvoiceController {
         serviceLayer.updateInvoice(invoiceViewModel);
     }
 
-    @DeleteMapping("/{id}")
+    @RequestMapping(value=  "/invoice/{id}",method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
     public void deleteEmployee(@PathVariable int id){
         if (id < 1) {
             throw new IllegalArgumentException("Invoice Id must be greater than 0.");

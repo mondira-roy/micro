@@ -1,5 +1,7 @@
 package com.company.TeamBreakU1M6Summative.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.Objects;
 
 public class InvoiceItem {
@@ -14,11 +16,17 @@ public class InvoiceItem {
 //    );
 
     private int invoiceItemId;
+    @NotEmpty(message = "You must supply a value for invoiceId.")
     private int invoiceId;
+    @NotEmpty(message = "You must supply a value for itemId.")
     private int itemId;
+    @NotEmpty(message = "You must supply a value for quantity.")
     private int quantity;
+    @NotEmpty(message = "You must supply a value for unitRate.")
     private double unitRate;
+    @NotEmpty(message = "You must supply a value for discount.")
     private double discount;
+
 
     @Override
     public boolean equals(Object o) {

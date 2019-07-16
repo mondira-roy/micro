@@ -1,13 +1,19 @@
 package com.company.TeamBreakU1M6Summative.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.Objects;
 
 public class Item {
 
     private int itemId;
+    @NotEmpty(message = "You must enter a value for name.")
     private String name;
+
     private String description;
+    @NotEmpty(message = "You must enter a value for dailyRate.")
     private double dailyRate;
+
 
 
     public int getItemId() {
