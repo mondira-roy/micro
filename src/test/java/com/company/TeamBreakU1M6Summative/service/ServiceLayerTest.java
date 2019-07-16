@@ -6,6 +6,9 @@ import com.company.TeamBreakU1M6Summative.model.Invoice;
 import com.company.TeamBreakU1M6Summative.model.Item;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,6 +18,9 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
 
 public class ServiceLayerTest {
     ServiceLayer service;
