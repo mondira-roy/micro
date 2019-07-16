@@ -349,7 +349,7 @@ public class ServiceLayer {
 
     }
 
-    private List<InvoiceViewModel> findInvoiceByCustomer(int id){
+    public List<InvoiceViewModel> findInvoiceByCustomer(int id){
         List<Invoice> invoicesByCustomerId = invoiceDao.getInvoiceByCustomer(id);
         List<InvoiceViewModel> ivmList = new ArrayList<>();
         invoicesByCustomerId.stream()
@@ -359,7 +359,7 @@ public class ServiceLayer {
     }
 
     // Helper Methods
-    private InvoiceViewModel buildInvoiceViewModel(Invoice invoice) {
+   public InvoiceViewModel buildInvoiceViewModel(Invoice invoice) {
 
         // Get the associated artist
 //        Customer customer = customerDao.getCustomer(invoice.getCustomerId());
