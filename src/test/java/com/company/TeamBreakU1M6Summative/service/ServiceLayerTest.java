@@ -3,6 +3,7 @@ package com.company.TeamBreakU1M6Summative.service;
 import com.company.TeamBreakU1M6Summative.dao.*;
 import com.company.TeamBreakU1M6Summative.model.Customer;
 import com.company.TeamBreakU1M6Summative.model.Invoice;
+import com.company.TeamBreakU1M6Summative.model.InvoiceItem;
 import com.company.TeamBreakU1M6Summative.model.Item;
 import org.junit.After;
 import org.junit.Before;
@@ -19,14 +20,12 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
 
 public class ServiceLayerTest {
     ServiceLayer service;
     CustomerDao customerDao;
     InvoiceDao invoiceDao;
-    InvoiceItemDao invoiceItemDao ;
+    InvoiceItemDao invoiceItemDao;
     ItemDao itemDao;
 
     @Before
@@ -36,15 +35,12 @@ public class ServiceLayerTest {
         setUpInvoiceDaoMock();
         setUpInvoiceItemDaoMock();
 
-        service = new ServiceLayer(customerDao, invoiceDao, invoiceItemDao, itemDao);
+        service = new ServiceLayer(customerDao, invoiceDao, itemDao, invoiceItemDao);
 
-    }invoiceItemDao
-
-    @After
-    public void tearDown() throws Exception {
     }
 
-    private void setUpCustomerDaoMock() {
+
+        private void setUpCustomerDaoMock() {
         customerDao = mock(CustomerDaoJdbcTemplateImpl.class);
         Customer customer = new Customer();
         customer.setCustomerId(1);
@@ -52,7 +48,7 @@ public class ServiceLayerTest {
         customer.setLastName("Fredo");
         customer.setEmail("geo@gmail.com");
         customer.setCompany("cognizant");
-        customer.setPhone("1234567891") ;
+        customer.setPhone("1234567891");
 
         Customer customer1 = new Customer();
 
@@ -60,7 +56,7 @@ public class ServiceLayerTest {
         customer1.setLastName("Fredo");
         customer1.setEmail("geo@gmail.com");
         customer1.setCompany("cognizant");
-        customer1.setPhone("1234567891") ;
+        customer1.setPhone("1234567891");
 
         List<Customer> customerList = new ArrayList<>();
         customerList.add(customer);
@@ -96,44 +92,50 @@ public class ServiceLayerTest {
         Invoice invoice = new Invoice();
         invoice.setInvoiceId(10);
         invoice.setCustomerId(1);
-        invoice.setOrderDate(LocalDate.of(2010,5,5));
-        invoice.setPickupDate(LocalDate.of(2010,5,10));
-        invoice.setReturnDate(LocalDate.of(2010,5,15));
+        invoice.setOrderDate(LocalDate.of(2010, 5, 5));
+        invoice.setPickupDate(LocalDate.of(2010, 5, 10));
+        invoice.setReturnDate(LocalDate.of(2010, 5, 15));
         invoice.setLateFee(35.77);
 
-        Invoice invoice2 = new Label();
-        invoice.setOrderDate(LocalDate.of(2010,5,5));
-        invoice.setPickupDate(LocalDate.of(2010,5,10));
-        invoice.setReturnDate(LocalDate.of(2010,5,15));
+        Invoice invoice2 = new Invoice();
+        invoice.setOrderDate(LocalDate.of(2010, 5, 5));
+        invoice.setPickupDate(LocalDate.of(2010, 5, 10));
+        invoice.setReturnDate(LocalDate.of(2010, 5, 15));
         invoice.setLateFee(35.77);
 
         List<Invoice> invoiceList = new ArrayList<>();
         invoiceList.add(invoice);
 
         doReturn(invoice).when(invoiceDao).createInvoice(invoice2);
-        doReturn(invoice).when(invoiceDao).getLabel(10);
-        doReturn(invoiceList).when(invoiceDao).getAllLabels();
+        doReturn(invoice).when(invoiceDao).getInvoiceById(10);
+        doReturn(invoice).when(invoiceDao).getInvoiceByCustomer(1);
+        doReturn(invoiceList).when(invoiceDao).getAllInvoice();
     }
 
     private void setUpInvoiceItemDaoMock() {
-        trackDao = mock(TrackDaoJdbcTemplateImpl.class);
-        Track track = new Track();
-        track.setId(1);
-        track.setAlbumId(1);
-        track.setRunTime(180);
-        track.setTitle("Number 1 Hit!");
+        invoiceItemDao = mock(InvoiceItemDaoJdbcTemplateImpl.class);
+        InvoiceItem invoiceItem = new InvoiceItem();
 
-        Track track2 = new Track();
-        track.setAlbumId(1);
-        track.setRunTime(180);
-        track.setTitle("Number 1 Hit!");
+        invoiceItem.setInvoiceItemId(45);
+        invoiceItem.setInvoiceId(10);
+        invoiceItem.setItemId(5);
+        invoiceItem.setQuantity(100);
+        invoiceItem.setUnitRate(12);
+        invoiceItem.setDiscount(32);
 
-        List<Track> tList = new ArrayList<>();
-        tList.add(track);
+        InvoiceItem invoiceItem2 = new InvoiceItem();
+        invoiceItem2.setInvoiceId(10);
+        invoiceItem2.setItemId(5);
+        invoiceItem2.setQuantity(100);
+        invoiceItem2.setUnitRate(12);
+        invoiceItem2.setDiscount(32);
 
-        doReturn(track).when(trackDao).addTrack(track2);
-        doReturn(track).when(trackDao).getTrack(1);
-        doReturn(tList).when(trackDao).getAllTracks();
-        doReturn(tList).when(trackDao).getTracksByAlbum(1);
+        List<InvoiceItem> invItemList = new ArrayList<>();
+        invItemList.add(invoiceItem);
+
+        doReturn(invoiceItem).when(invoiceItemDao).createInvoiceItem(invoiceItem2);
+        doReturn(invoiceItem).when(invoiceItemDao).getInvoiceItemById(1);
+        doReturn(invItemList).when(invoiceItemDao).getAllInvoiceItem();
+
     }
 }
