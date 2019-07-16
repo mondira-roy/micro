@@ -12,9 +12,10 @@ import java.util.List;
 @Repository
 public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
 
-    private final String CREATE_INVOICE_SQL = "insert into invoice(customer_id, order_date, pickup_date, return_date," +
-            " late_fee)" +
-            "values(?,?,?,?,?);";
+
+    private final String CREATE_INVOICE_SQL = "insert into invoice(customer_id, order_date, pickup_date, return_date, late_fee)" +
+                                                "values(?,?,?,?,?)";
+
     private final String DELETE_INVOICE_SQL = "delete from invoice where invoice_id = ?";
 
     private final String UPDATE_INVOICE_SQL = "update invoice set order_date = ?, pickup_date = ?, return_date = ?, " +
