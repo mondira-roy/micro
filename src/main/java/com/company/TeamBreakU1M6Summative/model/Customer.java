@@ -1,15 +1,24 @@
 package com.company.TeamBreakU1M6Summative.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class Customer {
     private int customerId;
+    @NotEmpty(message = "You must supply a value for firstName.")
     private String firstName;
+    @NotEmpty(message =  "You must supply a value for lastName.")
     private String lastName;
+    @NotEmpty(message = "You must supply a value for email.")
     private String email;
+    @NotEmpty(message = "You must supply a value for company.")
     private String company;
+    @NotEmpty(message = "You must supply a vlaue for company.")
     private String phone;
+
+
 
 
     public int getCustomerId() {
