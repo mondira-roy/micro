@@ -23,16 +23,16 @@ public class ServiceLayerTest {
     InvoiceItemDao invoiceItemDao ;
     ItemDao itemDao;
 
-    @Before
-    public void setUp() throws Exception {
-        setUpCustomerDaoMock();
-        setUpItemDaoMock();
-        setUpInvoiceDaoMock();
-        setUpInvoiceItemDaoMock();
-
-        service = new ServiceLayer(customerDao, invoiceDao, invoiceItemDao, itemDao);
-
-    }invoiceItemDao
+//    @Before
+//    public void setUp() throws Exception {
+//        setUpCustomerDaoMock();
+//        setUpItemDaoMock();
+//        setUpInvoiceDaoMock();
+//        setUpInvoiceItemDaoMock();
+//
+//        service = new ServiceLayer(customerDao, invoiceDao, invoiceItemDao, itemDao);
+//
+//    }invoiceItemDao
 
     @After
     public void tearDown() throws Exception {
@@ -86,48 +86,48 @@ public class ServiceLayerTest {
     }
 
     private void setUpInvoiceDaoMock() {
-        invoiceDao = mock(InvoiceDaoJdbcTemplateImpl.class);
-        Invoice invoice = new Invoice();
-        invoice.setInvoiceId(10);
-        invoice.setCustomerId(1);
-        invoice.setOrderDate(LocalDate.of(2010,5,5));
-        invoice.setPickupDate(LocalDate.of(2010,5,10));
-        invoice.setReturnDate(LocalDate.of(2010,5,15));
-        invoice.setLateFee(35.77);
-
-        Invoice invoice2 = new Label();
-        invoice.setOrderDate(LocalDate.of(2010,5,5));
-        invoice.setPickupDate(LocalDate.of(2010,5,10));
-        invoice.setReturnDate(LocalDate.of(2010,5,15));
-        invoice.setLateFee(35.77);
-
-        List<Invoice> invoiceList = new ArrayList<>();
-        invoiceList.add(invoice);
-
-        doReturn(invoice).when(invoiceDao).createInvoice(invoice2);
-        doReturn(invoice).when(invoiceDao).getLabel(10);
-        doReturn(invoiceList).when(invoiceDao).getAllLabels();
+//        invoiceDao = mock(InvoiceDaoJdbcTemplateImpl.class);
+//        Invoice invoice = new Invoice();
+//        invoice.setInvoiceId(10);
+//        invoice.setCustomerId(1);
+//        invoice.setOrderDate(LocalDate.of(2010,5,5));
+//        invoice.setPickupDate(LocalDate.of(2010,5,10));
+//        invoice.setReturnDate(LocalDate.of(2010,5,15));
+//        invoice.setLateFee(35.77);
+//
+//        Invoice invoice2 = new Label();
+//        invoice.setOrderDate(LocalDate.of(2010,5,5));
+//        invoice.setPickupDate(LocalDate.of(2010,5,10));
+//        invoice.setReturnDate(LocalDate.of(2010,5,15));
+//        invoice.setLateFee(35.77);
+//
+//        List<Invoice> invoiceList = new ArrayList<>();
+//        invoiceList.add(invoice);
+//
+//        doReturn(invoice).when(invoiceDao).createInvoice(invoice2);
+//        doReturn(invoice).when(invoiceDao).getLabel(10);
+//        doReturn(invoiceList).when(invoiceDao).getAllLabels();
     }
 
     private void setUpInvoiceItemDaoMock() {
-        trackDao = mock(TrackDaoJdbcTemplateImpl.class);
-        Track track = new Track();
-        track.setId(1);
-        track.setAlbumId(1);
-        track.setRunTime(180);
-        track.setTitle("Number 1 Hit!");
-
-        Track track2 = new Track();
-        track.setAlbumId(1);
-        track.setRunTime(180);
-        track.setTitle("Number 1 Hit!");
-
-        List<Track> tList = new ArrayList<>();
-        tList.add(track);
-
-        doReturn(track).when(trackDao).addTrack(track2);
-        doReturn(track).when(trackDao).getTrack(1);
-        doReturn(tList).when(trackDao).getAllTracks();
-        doReturn(tList).when(trackDao).getTracksByAlbum(1);
+//        trackDao = mock(TrackDaoJdbcTemplateImpl.class);
+//        Track track = new Track();
+//        track.setId(1);
+//        track.setAlbumId(1);
+//        track.setRunTime(180);
+//        track.setTitle("Number 1 Hit!");
+//
+//        Track track2 = new Track();
+//        track.setAlbumId(1);
+//        track.setRunTime(180);
+//        track.setTitle("Number 1 Hit!");
+//
+//        List<Track> tList = new ArrayList<>();
+//        tList.add(track);
+//
+//        doReturn(track).when(trackDao).addTrack(track2);
+//        doReturn(track).when(trackDao).getTrack(1);
+//        doReturn(tList).when(trackDao).getAllTracks();
+//        doReturn(tList).when(trackDao).getTracksByAlbum(1);
     }
 }
