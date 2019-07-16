@@ -87,6 +87,7 @@ public class CustomerDaoJdbcTemplateImpl implements CustomerDao{
     public void deleteCustomer(int id) {
         jdbcTemplate.update(DELETE_CUSTOMER_SQL, id);
     }
+
     private Customer mapRowToCustomer(ResultSet rs, int rowNum) throws SQLException {
         Customer customer = new Customer();
 

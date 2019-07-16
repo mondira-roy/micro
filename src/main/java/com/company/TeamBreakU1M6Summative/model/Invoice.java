@@ -2,6 +2,7 @@ package com.company.TeamBreakU1M6Summative.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -16,7 +17,7 @@ public class Invoice {
     @NotEmpty(message = "You must supply a value for returnDate.")
     private LocalDate returnDate;
     @NotEmpty(message = "You must supply a value for lateFee.")
-    private double lateFee;
+    private BigDecimal lateFee;
 
 
     public int getInvoiceId() {
@@ -59,11 +60,11 @@ public class Invoice {
         this.returnDate = returnDate;
     }
 
-    public double getLateFee() {
+    public BigDecimal getLateFee() {
         return lateFee;
     }
 
-    public void setLateFee(double lateFee) {
+    public void setLateFee(BigDecimal lateFee) {
         this.lateFee = lateFee;
     }
 
@@ -74,10 +75,10 @@ public class Invoice {
         Invoice invoice = (Invoice) o;
         return getInvoiceId() == invoice.getInvoiceId() &&
                 getCustomerId() == invoice.getCustomerId() &&
-                Double.compare(invoice.getLateFee(), getLateFee()) == 0 &&
                 getOrderDate().equals(invoice.getOrderDate()) &&
-                Objects.equals(getPickupDate(), invoice.getPickupDate()) &&
-                Objects.equals(getReturnDate(), invoice.getReturnDate());
+                getPickupDate().equals(invoice.getPickupDate()) &&
+                getReturnDate().equals(invoice.getReturnDate()) &&
+                getLateFee().equals(invoice.getLateFee());
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.company.TeamBreakU1M6Summative.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class InvoiceItem {
@@ -23,10 +24,9 @@ public class InvoiceItem {
     @NotEmpty(message = "You must supply a value for quantity.")
     private int quantity;
     @NotEmpty(message = "You must supply a value for unitRate.")
-    private double unitRate;
+    private BigDecimal unitRate;
     @NotEmpty(message = "You must supply a value for discount.")
-    private double discount;
-
+    private BigDecimal discount;
 
     @Override
     public boolean equals(Object o) {
@@ -37,8 +37,8 @@ public class InvoiceItem {
                 getInvoiceId() == that.getInvoiceId() &&
                 getItemId() == that.getItemId() &&
                 getQuantity() == that.getQuantity() &&
-                Double.compare(that.getUnitRate(), getUnitRate()) == 0 &&
-                Double.compare(that.getDiscount(), getDiscount()) == 0;
+                getUnitRate().equals(that.getUnitRate()) &&
+                getDiscount().equals(that.getDiscount());
     }
 
     @Override
@@ -78,19 +78,19 @@ public class InvoiceItem {
         this.quantity = quantity;
     }
 
-    public double getUnitRate() {
+    public BigDecimal getUnitRate() {
         return unitRate;
     }
 
-    public void setUnitRate(double unitRate) {
+    public void setUnitRate(BigDecimal unitRate) {
         this.unitRate = unitRate;
     }
 
-    public double getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount(double discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 }

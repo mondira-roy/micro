@@ -39,6 +39,7 @@ public class ServiceLayerTest {
 
     }
 
+    // need service layer test methods
 
         private void setUpCustomerDaoMock() {
         customerDao = mock(CustomerDaoJdbcTemplateImpl.class);
@@ -72,12 +73,12 @@ public class ServiceLayerTest {
         item.setItemId(5);
         item.setName("Iindia");
         item.setDescription("Team Break Member ");
-        item.setDailyRate(200.00);
+        item.setDailyRate(new BigDecimal("3.5").setScale(2));
 
         Item item2 = new Item();
         item2.setName("Iindia");
         item2.setDescription("Team Break Member ");
-        item2.setDailyRate(200.00);
+        item2.setDailyRate(new BigDecimal("3.5").setScale(2));
 
         List<Item> itemList = new ArrayList();
         itemList.add(item);
@@ -95,13 +96,13 @@ public class ServiceLayerTest {
         invoice.setOrderDate(LocalDate.of(2010, 5, 5));
         invoice.setPickupDate(LocalDate.of(2010, 5, 10));
         invoice.setReturnDate(LocalDate.of(2010, 5, 15));
-        invoice.setLateFee(35.77);
+        invoice.setLateFee(new BigDecimal("3.5").setScale(2));
 
         Invoice invoice2 = new Invoice();
         invoice.setOrderDate(LocalDate.of(2010, 5, 5));
         invoice.setPickupDate(LocalDate.of(2010, 5, 10));
         invoice.setReturnDate(LocalDate.of(2010, 5, 15));
-        invoice.setLateFee(35.77);
+        invoice.setLateFee(new BigDecimal("3.5").setScale(2));
 
         List<Invoice> invoiceList = new ArrayList<>();
         invoiceList.add(invoice);
@@ -120,15 +121,15 @@ public class ServiceLayerTest {
         invoiceItem.setInvoiceId(10);
         invoiceItem.setItemId(5);
         invoiceItem.setQuantity(100);
-        invoiceItem.setUnitRate(12);
-        invoiceItem.setDiscount(32);
+        invoiceItem.setUnitRate(new BigDecimal("3.5").setScale(2));
+        invoiceItem.setDiscount(new BigDecimal("3.5").setScale(2));
 
         InvoiceItem invoiceItem2 = new InvoiceItem();
         invoiceItem2.setInvoiceId(10);
         invoiceItem2.setItemId(5);
         invoiceItem2.setQuantity(100);
-        invoiceItem2.setUnitRate(12);
-        invoiceItem2.setDiscount(32);
+        invoiceItem2.setUnitRate(new BigDecimal("3.5").setScale(2));
+        invoiceItem2.setDiscount(new BigDecimal("3.5").setScale(2));
 
         List<InvoiceItem> invItemList = new ArrayList<>();
         invItemList.add(invoiceItem);

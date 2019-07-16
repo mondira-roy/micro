@@ -2,6 +2,7 @@ package com.company.TeamBreakU1M6Summative.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Item {
@@ -12,7 +13,7 @@ public class Item {
 
     private String description;
     @NotEmpty(message = "You must enter a value for dailyRate.")
-    private double dailyRate;
+    private BigDecimal dailyRate;
 
 
 
@@ -40,11 +41,11 @@ public class Item {
         this.description = description;
     }
 
-    public double getDailyRate() {
+    public BigDecimal getDailyRate() {
         return dailyRate;
     }
 
-    public void setDailyRate(double dailyRate) {
+    public void setDailyRate(BigDecimal dailyRate) {
         this.dailyRate = dailyRate;
     }
 
@@ -55,9 +56,9 @@ public class Item {
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
         return getItemId() == item.getItemId() &&
-                getDailyRate() == item.getDailyRate() &&
                 getName().equals(item.getName()) &&
-                Objects.equals(getDescription(), item.getDescription());
+                getDescription().equals(item.getDescription()) &&
+                getDailyRate().equals(item.getDailyRate());
     }
 
     @Override

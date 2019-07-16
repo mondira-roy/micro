@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -59,18 +60,13 @@ public class ItemDaoJdbcTemplateImplTest {
 
     }
 
-    @After
-    public void tearDown() throws Exception{
-
-    }
-
     @Test
     public void addItem(){
 
         Item item = new Item();
         item.setName("Shirt");
         item.setDescription("Red shirt.");
-        item.setDailyRate(10.99);
+        item.setDailyRate(new BigDecimal("3.5").setScale(2));
 
         item = itemDao.addItem(item);
 
@@ -85,7 +81,7 @@ public class ItemDaoJdbcTemplateImplTest {
         Item item = new Item();
         item.setName("Shirt");
         item.setDescription("Red shirt.");
-        item.setDailyRate(10.99);
+        item.setDailyRate(new BigDecimal("3.5").setScale(2));
 
         item = itemDao.addItem(item);
 
@@ -93,13 +89,14 @@ public class ItemDaoJdbcTemplateImplTest {
 
         assertEquals(item ,item2);
     }
+
     @Test
     public void deleteItem(){
 
         Item item = new Item();
         item.setName("Shirt");
         item.setDescription("Red shirt.");
-        item.setDailyRate(10.99);
+        item.setDailyRate(new BigDecimal("3.5").setScale(2));
 
         item = itemDao.addItem(item);
 
@@ -116,7 +113,7 @@ public class ItemDaoJdbcTemplateImplTest {
         Item item = new Item();
         item.setName("Shirt");
         item.setDescription("Red shirt.");
-        item.setDailyRate(10.99);
+        item.setDailyRate(new BigDecimal("3.5").setScale(2));
 
         item = itemDao.addItem(item);
 
@@ -139,14 +136,14 @@ public class ItemDaoJdbcTemplateImplTest {
         Item item = new Item();
         item.setName("Shirt");
         item.setDescription("Red shirt.");
-        item.setDailyRate(10.99);
+        item.setDailyRate(new BigDecimal("3.5").setScale(2));
 
         itemDao.addItem(item);
 
         item= new Item();
         item.setName("Pants");
         item.setDescription("Black pants.");
-        item.setDailyRate(15.99);
+        item.setDailyRate(new BigDecimal("3.5").setScale(2));
 
 
         itemDao.addItem(item);
@@ -162,12 +159,12 @@ public class ItemDaoJdbcTemplateImplTest {
         Item item = new Item();
         item.setName("Shirt");
         item.setDescription("Red shirt.");
-        item.setDailyRate(10.99);
+        item.setDailyRate(new BigDecimal("3.5").setScale(2));
 
         itemDao.addItem(item);
 
         item.setDescription("DAMAGED");
-        item.setDailyRate(4.99);
+        item.setDailyRate(new BigDecimal("3.5").setScale(2));
 
         itemDao.updateItem(item);
 

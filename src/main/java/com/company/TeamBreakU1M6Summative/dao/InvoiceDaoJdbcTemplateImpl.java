@@ -1,6 +1,7 @@
 package com.company.TeamBreakU1M6Summative.dao;
 
 import com.company.TeamBreakU1M6Summative.model.Invoice;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,6 +30,7 @@ public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
 
     JdbcTemplate jdbcTemplate;
 
+    @Autowired
     public InvoiceDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -40,9 +42,9 @@ public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
                 invoice.getOrderDate(),
                 invoice.getPickupDate(),
                 invoice.getReturnDate(),
-                invoice.getInvoiceId(),
                 invoice.getLateFee());
-        int id = jdbcTemplate.queryForObject("select last_insert_id", Integer.class);
+
+        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
         invoice.setInvoiceId(id);
         return invoice;
     }
@@ -106,7 +108,7 @@ public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
         invoice.setOrderDate(rs.getDate("order_date").toLocalDate());
         invoice.setPickupDate(rs.getDate("pickup_date").toLocalDate());
         invoice.setReturnDate(rs.getDate("return_date").toLocalDate());
-        invoice.setLateFee(rs.getDouble("late_fee"));
+        invoice.setLateFee(rs.getBigDecimal("late_fee"));
 
         return invoice;
 

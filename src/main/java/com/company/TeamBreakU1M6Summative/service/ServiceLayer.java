@@ -12,12 +12,14 @@ import com.company.TeamBreakU1M6Summative.model.InvoiceItem;
 import com.company.TeamBreakU1M6Summative.model.Item;
 import com.company.TeamBreakU1M6Summative.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class ServiceLayer {
 
     private CustomerDao customerDao;
@@ -106,26 +108,26 @@ public class ServiceLayer {
         invoice.setReturnDate(viewModel.getReturnDate());
         invoice.setLateFee(viewModel.getLateFee());
         invoiceDao.updateInvoice(invoice);
-<<<<<<< HEAD
-
-
+//<<<<<<< HEAD
+//
 //
 ////
-////        // We don't know if any track have been removed so delete all associated tracks
-////        // and then associate the tracks in the viewModel with the album
-        List<InvoiceItem> invoiceItemsList = viewModel.getInvoiceItemsList();
-        invoiceItemsList.stream()
-                .forEach(invoiceItem -> invoiceItemDao.updateInvoiceItem(invoiceItem));
-//
-//        List<InvoiceItem> tracks = viewModel.getTracks();
-//        tracks.stream()
-//                .forEach(t ->
-//                {
-//                    t.setAlbumId(viewModel.getId());
-//                    t = trackDao.addTrack(t);
-//                });
-=======
->>>>>>> 5737b1a445cdbe1ed4f9fd1bba5ce99b52297c41
+//////
+//////        // We don't know if any track have been removed so delete all associated tracks
+//////        // and then associate the tracks in the viewModel with the album
+//        List<InvoiceItem> invoiceItemsList = viewModel.getInvoiceItemsList();
+//        invoiceItemsList.stream()
+//                .forEach(invoiceItem -> invoiceItemDao.updateInvoiceItem(invoiceItem));
+////
+////        List<InvoiceItem> tracks = viewModel.getTracks();
+////        tracks.stream()
+////                .forEach(t ->
+////                {
+////                    t.setAlbumId(viewModel.getId());
+////                    t = trackDao.addTrack(t);
+////                });
+//=======
+//>>>>>>> 5737b1a445cdbe1ed4f9fd1bba5ce99b52297c41
     }
 
     @Transactional
@@ -137,17 +139,17 @@ public class ServiceLayer {
 
     }
 
-    public List<InvoiceViewModel> findInvoiceByCustomer(int id){
+    public List<InvoiceViewModel> findInvoiceByCustomer(int id) {
         List<Invoice> invoicesByCustomerId = invoiceDao.getInvoiceByCustomer(id);
         List<InvoiceViewModel> ivmList = new ArrayList<>();
         invoicesByCustomerId.stream()
-                .forEach(i ->ivmList.add(buildInvoiceViewModel(i)));
+                .forEach(i -> ivmList.add(buildInvoiceViewModel(i)));
 
         return ivmList;
     }
 
     // Helper Methods
-   public InvoiceViewModel buildInvoiceViewModel(Invoice invoice) {
+    public InvoiceViewModel buildInvoiceViewModel(Invoice invoice) {
 
         // Get the associated artist
 //        Customer customer = customerDao.getCustomer(invoice.getCustomerId());

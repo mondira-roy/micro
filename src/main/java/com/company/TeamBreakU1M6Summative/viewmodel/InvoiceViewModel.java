@@ -3,6 +3,7 @@ package com.company.TeamBreakU1M6Summative.viewmodel;
 import com.company.TeamBreakU1M6Summative.model.Customer;
 import com.company.TeamBreakU1M6Summative.model.InvoiceItem;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class InvoiceViewModel {
     private LocalDate orderDate;
     private LocalDate pickupDate;
     private LocalDate returnDate;
-    private double lateFee;
+    private BigDecimal lateFee;
     private List<InvoiceItem> invoiceItemsList = new ArrayList<>();
 
     public List<InvoiceItem> getInvoiceItemsList() {
@@ -66,11 +67,11 @@ public class InvoiceViewModel {
         this.returnDate = returnDate;
     }
 
-    public double getLateFee() {
+    public BigDecimal getLateFee() {
         return lateFee;
     }
 
-    public void setLateFee(double lateFee) {
+    public void setLateFee(BigDecimal lateFee) {
         this.lateFee = lateFee;
     }
 
@@ -80,15 +81,16 @@ public class InvoiceViewModel {
         if (o == null || getClass() != o.getClass()) return false;
         InvoiceViewModel that = (InvoiceViewModel) o;
         return getInvoiceId() == that.getInvoiceId() &&
-                Double.compare(that.getLateFee(), getLateFee()) == 0 &&
                 getCustomer().equals(that.getCustomer()) &&
                 getOrderDate().equals(that.getOrderDate()) &&
                 getPickupDate().equals(that.getPickupDate()) &&
-                getReturnDate().equals(that.getReturnDate());
+                getReturnDate().equals(that.getReturnDate()) &&
+                getLateFee().equals(that.getLateFee()) &&
+                getInvoiceItemsList().equals(that.getInvoiceItemsList());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getInvoiceId(), getCustomer(), getOrderDate(), getPickupDate(), getReturnDate(), getLateFee());
+        return Objects.hash(getInvoiceId(), getCustomer(), getOrderDate(), getPickupDate(), getReturnDate(), getLateFee(), getInvoiceItemsList());
     }
 }

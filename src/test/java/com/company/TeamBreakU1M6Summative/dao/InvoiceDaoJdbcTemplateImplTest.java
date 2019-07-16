@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AbstractContextLoader;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,10 +64,10 @@ public class InvoiceDaoJdbcTemplateImplTest {
         invoice.setOrderDate(LocalDate.of(2019, 7, 15));
         invoice.setPickupDate(LocalDate.of(2019, 7, 30));
         invoice.setReturnDate(LocalDate.of(2019, 8, 5));
-        invoice.setLateFee(2.00);
+        invoice.setLateFee(new BigDecimal("3.5").setScale(2));
         invoice = invoiceDao.createInvoice(invoice);
 
-        Invoice invoice2 = invoiceDao.getInvoiceById(invoice.getCustomerId());
+        Invoice invoice2 = invoiceDao.getInvoiceById(invoice.getInvoiceId());
 
         assertEquals(invoice, invoice2);
 
@@ -95,14 +96,14 @@ public class InvoiceDaoJdbcTemplateImplTest {
         invoice.setOrderDate(LocalDate.of(2019, 7, 15));
         invoice.setPickupDate(LocalDate.of(2019, 7, 30));
         invoice.setReturnDate(LocalDate.of(2019, 8, 5));
-        invoice.setLateFee(2.00);
+        invoice.setLateFee(new BigDecimal("3.5").setScale(2));
         invoice = invoiceDao.createInvoice(invoice);
 
-        invoice.setLateFee(5.00);
+        invoice.setLateFee(new BigDecimal("3.5").setScale(2));
 
         invoiceDao.updateInvoice(invoice);
 
-        Invoice invoice2 = invoiceDao.getInvoiceById(invoice.getCustomerId());
+        Invoice invoice2 = invoiceDao.getInvoiceById(invoice.getInvoiceId());
 
         assertEquals(invoice, invoice2);
 
@@ -125,7 +126,7 @@ public class InvoiceDaoJdbcTemplateImplTest {
         invoice.setOrderDate(LocalDate.of(2019, 7, 15));
         invoice.setPickupDate(LocalDate.of(2019, 7, 30));
         invoice.setReturnDate(LocalDate.of(2019, 8, 5));
-        invoice.setLateFee(2.00);
+        invoice.setLateFee(new BigDecimal("3.5").setScale(2));
         invoice = invoiceDao.createInvoice(invoice);
 
         Customer customer2 = new Customer();
@@ -141,7 +142,7 @@ public class InvoiceDaoJdbcTemplateImplTest {
         invoice2.setOrderDate(LocalDate.of(2019, 6, 25));
         invoice2.setPickupDate(LocalDate.of(2019, 7, 4));
         invoice.setReturnDate(LocalDate.of(2019, 7, 9));
-        invoice2.setLateFee(2.00);
+        invoice2.setLateFee(new BigDecimal("3.5").setScale(2));
         invoice2 = invoiceDao.createInvoice(invoice);
 
         invoiceList = invoiceDao.getAllInvoice();
@@ -165,7 +166,7 @@ public class InvoiceDaoJdbcTemplateImplTest {
         invoice.setOrderDate(LocalDate.of(2019, 7, 15));
         invoice.setPickupDate(LocalDate.of(2019, 7, 30));
         invoice.setReturnDate(LocalDate.of(2019, 8, 5));
-        invoice.setLateFee(2.00);
+        invoice.setLateFee(new BigDecimal("3.5").setScale(2));
         invoice = invoiceDao.createInvoice(invoice);
 
         Invoice invoice2 = invoiceDao.getInvoiceById(customer.getCustomerId());

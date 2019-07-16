@@ -99,8 +99,8 @@ public class InvoiceItemDaoJdbcTemplateImpl implements InvoiceItemDao {
     public InvoiceItem MapTo(ResultSet rs, int rowNum)throws SQLException {
         InvoiceItem invoiceItem = new InvoiceItem();
         invoiceItem.setInvoiceItemId(rs.getInt("invoice_item_id"));
-        invoiceItem.setDiscount(rs.getDouble("discount"));
-        invoiceItem.setUnitRate(rs.getDouble("unit_rate"));
+        invoiceItem.setDiscount(rs.getBigDecimal("discount"));
+        invoiceItem.setUnitRate(rs.getBigDecimal("unit_rate"));
         invoiceItem.setInvoiceId(rs.getInt("invoice_id"));
         invoiceItem.setItemId(rs.getInt("item_id"));
         invoiceItem.setQuantity(rs.getInt("quantity"));

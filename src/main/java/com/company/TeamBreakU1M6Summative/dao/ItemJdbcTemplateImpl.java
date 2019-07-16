@@ -20,7 +20,7 @@ public class ItemJdbcTemplateImpl implements ItemDao {
     private JdbcTemplate jdbcTemplate;
 
     private static final String INSERT_ITEM_SQL =
-            "insert into item (item_id, name, description, daily_rate) values (?, ?, ?)";
+            "insert into item ( name, description, daily_rate) values (?, ?, ?)";
 
     private static final String SELECT_ITEM_SQL =
             "select * from item where item_id = ?";
@@ -29,7 +29,7 @@ public class ItemJdbcTemplateImpl implements ItemDao {
             "select * from item";
 
     private static final String UPDATE_ITEM_SQL =
-            "update item set item_id = ? , name = ? , description = ? , daily rate = ?";
+            "update item set name = ? , description = ? , daily_rate = ? where item_id=?";
 
     private static final String DELETE_ITEM_SQL =
             "delete from item where item_id = ?";
@@ -46,7 +46,6 @@ public class ItemJdbcTemplateImpl implements ItemDao {
 
         jdbcTemplate.update(
                 INSERT_ITEM_SQL,
-                item.getItemId(),
                 item.getName(),
                 item.getDescription(),
                 item.getDailyRate());
@@ -89,10 +88,10 @@ public class ItemJdbcTemplateImpl implements ItemDao {
 
         jdbcTemplate.update(
                 UPDATE_ITEM_SQL,
-                item.getItemId(),
                 item.getName(),
                 item.getDescription(),
-                item.getDailyRate());
+                item.getDailyRate(),
+                item.getItemId());
 
     }
 
@@ -107,7 +106,7 @@ public class ItemJdbcTemplateImpl implements ItemDao {
         item.setItemId(rs.getInt("item_id"));
         item.setName(rs.getString("name"));
         item.setDescription(rs.getString("description"));
-        item.setDailyRate(rs.getInt("daily_rate"));
+        item.setDailyRate(rs.getBigDecimal("daily_rate"));
 
         return item;
    }
