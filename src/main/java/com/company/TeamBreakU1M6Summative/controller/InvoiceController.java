@@ -1,9 +1,7 @@
 package com.company.TeamBreakU1M6Summative.controller;
 
-
-import com.company.TeamBreakU1M6Summative.dao.InvoiceDao;
-import com.company.TeamBreakU1M6Summative.dao.InvoiceItemDao;
 import com.company.TeamBreakU1M6Summative.model.Invoice;
+import com.company.TeamBreakU1M6Summative.service.ServiceLayer;
 import com.company.TeamBreakU1M6Summative.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,21 +20,18 @@ public class InvoiceController {
      */
 
     @Autowired
-    InvoiceDao invoiceDao;
-
-    @Autowired
-    InvoiceItemDao invoiceItemDao;
+    ServiceLayer serviceLayer;
 
     @PostMapping("/")
     @ResponseStatus(value = HttpStatus.CREATED)
     public InvoiceViewModel createInvoice(@Valid @RequestBody Invoice invoice) {
-        return invoiceDao.createInvoice(invoice);
+        return serviceLayer.saveInvoice(invoice);
     }
 
     @GetMapping("/")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Invoice> getAllInvoices() {
-        return invoiceDao.getAllInvoice();
+        return serviceLayer.findAllInvoice();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +42,7 @@ public class InvoiceController {
             throw new IllegalArgumentException("Invoice Id must be greater than 0.");
         }
 
-        return invoiceDao.getInvoiceById(id);
+        return serviceLayer.findInvoiceById(id);
 
     }
 
@@ -59,7 +54,7 @@ public class InvoiceController {
             throw new IllegalArgumentException("Customer Id must be greater than 0.");
         }
 
-        return invoiceDao.getInvoiceByCustomer(id);
+        return serviceLayer.findInvoiceByCustomer(id);
     }
 
     @PutMapping("/{id}")
@@ -69,7 +64,7 @@ public class InvoiceController {
             throw new IllegalArgumentException("Invoice Id must be greater than 0.");
         }
 
-        invoiceDao.updateInvoice(invoice);
+        serviceLayer.updateInvoice(invoice);
     }
 
     @DeleteMapping("/{id}")
@@ -78,6 +73,6 @@ public class InvoiceController {
             throw new IllegalArgumentException("Invoice Id must be greater than 0.");
         }
 
-        invoiceDao.deleteInvoice(id);
+        serviceLayer.removeInvoice(id);
     }
 }
