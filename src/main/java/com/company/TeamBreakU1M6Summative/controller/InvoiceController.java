@@ -24,8 +24,8 @@ public class InvoiceController {
 
     @PostMapping("/")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public InvoiceViewModel createInvoice(@Valid @RequestBody Invoice invoice) {
-        return serviceLayer.saveInvoice(invoice);
+    public InvoiceViewModel createInvoice(@Valid @RequestBody InvoiceViewModel invoiceViewModel) {
+        return serviceLayer.saveInvoice(invoiceViewModel);
     }
 
     @GetMapping("/")
@@ -36,7 +36,7 @@ public class InvoiceController {
 
     @GetMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Invoice getInvoiceById(@PathVariable int id) {
+    public InvoiceViewModel getInvoiceById(@PathVariable int id) {
 
         if(id<1){
             throw new IllegalArgumentException("Invoice Id must be greater than 0.");
@@ -48,7 +48,7 @@ public class InvoiceController {
 
     @GetMapping("/customer/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Invoice> getInvoiceByCustomerId(@PathVariable int id) {
+    public List<InvoiceViewModel> getInvoiceByCustomerId(@PathVariable int id) {
 
         if(id<1){
             throw new IllegalArgumentException("Customer Id must be greater than 0.");
@@ -59,7 +59,7 @@ public class InvoiceController {
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateInvoice(@PathVariable int id, @Valid @RequestBody Invoice invoice) {
+    public void updateInvoice(@PathVariable int id, @Valid @RequestBody InvoiceViewModel invoiceViewModel) {
         if (id < 1) {
             throw new IllegalArgumentException("Invoice Id must be greater than 0.");
         }
