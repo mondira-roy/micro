@@ -104,13 +104,15 @@ public class ServiceLayer {
         invoice.setReturnDate(viewModel.getReturnDate());
         invoice.setLateFee(viewModel.getLateFee());
         invoiceDao.updateInvoice(invoice);
+
+
 //
 ////
 ////        // We don't know if any track have been removed so delete all associated tracks
 ////        // and then associate the tracks in the viewModel with the album
-//        List<InvoiceItem> invoiceItemsList = viewModel.getInvoiceItemsList();
-//        invoiceItemsList.stream()
-//                .forEach(invoiceItem -> invoiceItemDao.deleteInvoiceItem(invoiceItem.getInvoiceItemId()));
+        List<InvoiceItem> invoiceItemsList = viewModel.getInvoiceItemsList();
+        invoiceItemsList.stream()
+                .forEach(invoiceItem -> invoiceItemDao.updateInvoiceItem(invoiceItem));
 //
 //        List<InvoiceItem> tracks = viewModel.getTracks();
 //        tracks.stream()
@@ -132,6 +134,7 @@ public class ServiceLayer {
 
         // Remove invoice
         invoiceDao.deleteInvoice(id);
+
 
     }
 

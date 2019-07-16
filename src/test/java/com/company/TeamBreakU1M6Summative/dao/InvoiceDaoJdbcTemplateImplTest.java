@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public class InvoiceDaoJdbcTemplateImplTest {
 
     @Autowired

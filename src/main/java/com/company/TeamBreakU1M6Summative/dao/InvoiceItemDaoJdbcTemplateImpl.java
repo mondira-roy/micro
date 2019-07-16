@@ -89,6 +89,13 @@ public class InvoiceItemDaoJdbcTemplateImpl implements InvoiceItemDao {
         );
     }
 
+    @Override
+    public List<InvoiceItem> getInvoiceItemByInvoiceId(int id) {
+        String sql = "select * from invoice_item where invoice_id = ?";
+        List<InvoiceItem> invoiceItemList = jdbcTemplate.query(sql, this::MapTo, id);
+        return invoiceItemList;
+    }
+
     public InvoiceItem MapTo(ResultSet rs, int rowNum)throws SQLException {
         InvoiceItem invoiceItem = new InvoiceItem();
         invoiceItem.setInvoiceItemId(rs.getInt("invoice_item_id"));
