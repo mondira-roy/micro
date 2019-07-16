@@ -1,15 +1,23 @@
 package com.company.TeamBreakU1M6Summative.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class Invoice {
     private int invoiceId;
+    @NotEmpty(message = "You must supply a value for customerId.")
     private int customerId;
+    @NotEmpty(message = "You must supply a value for orderDate.")
     private LocalDate orderDate;
+    @NotEmpty(message = "You must supply a value for pickupDate.")
     private LocalDate pickupDate;
+    @NotEmpty(message = "You must supply a value for returnDate.")
     private LocalDate returnDate;
+    @NotEmpty(message = "You must supply a value for lateFee.")
     private double lateFee;
+
 
     public int getInvoiceId() {
         return invoiceId;

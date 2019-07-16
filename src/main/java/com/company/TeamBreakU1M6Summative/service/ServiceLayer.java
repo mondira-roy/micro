@@ -1,3 +1,5 @@
+
+
 package com.company.TeamBreakU1M6Summative.service;
 
 import com.company.TeamBreakU1M6Summative.dao.CustomerDao;
@@ -104,31 +106,10 @@ public class ServiceLayer {
         invoice.setReturnDate(viewModel.getReturnDate());
         invoice.setLateFee(viewModel.getLateFee());
         invoiceDao.updateInvoice(invoice);
-//
-////
-////        // We don't know if any track have been removed so delete all associated tracks
-////        // and then associate the tracks in the viewModel with the album
-//        List<InvoiceItem> invoiceItemsList = viewModel.getInvoiceItemsList();
-//        invoiceItemsList.stream()
-//                .forEach(invoiceItem -> invoiceItemDao.deleteInvoiceItem(invoiceItem.getInvoiceItemId()));
-//
-//        List<InvoiceItem> tracks = viewModel.getTracks();
-//        tracks.stream()
-//                .forEach(t ->
-//                {
-//                    t.setAlbumId(viewModel.getId());
-//                    t = trackDao.addTrack(t);
-//                });
     }
 
     @Transactional
     public void removeInvoice(int id) {
-
-        // Remove all associated tracks first
-//        List<Track> trackList = trackDao.getTracksByAlbum(id);
-//
-//        trackList.stream()
-//                .forEach(track -> trackDao.deleteTrack(track.getId()));
 
         // Remove invoice
         invoiceDao.deleteInvoice(id);
@@ -230,3 +211,4 @@ public class ServiceLayer {
 
 
 }
+
