@@ -1,7 +1,7 @@
 package com.company.TeamBreakU1M6Summative.controller;
 
-import com.company.TeamBreakU1M6Summative.dao.ItemDao;
 import com.company.TeamBreakU1M6Summative.model.Item;
+import com.company.TeamBreakU1M6Summative.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +15,21 @@ public class ItemController {
 
     /**
      * This controller deals with item routes
-     * Only Item obj
      */
 
     @Autowired
-    ItemDao itemDao;
+    ServiceLayer serviceLayer;
 
     @PostMapping("/")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Item createItem(@Valid @RequestBody Item item) {
-        return itemDao.addItem(item);
+    public Item createItem(@Valid @RequestBody Item customer) {
+        return serviceLayer.saveItem(customer);
     }
 
     @GetMapping("/")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Item> getAllItems() {
-        return itemDao.getAllItems();
+        return serviceLayer.findAllItems();
     }
 
     @GetMapping("/{id}")
@@ -41,18 +40,18 @@ public class ItemController {
             throw new IllegalArgumentException("Item Id must be greater than 0.");
         }
 
-        return itemDao.getItem(id);
+        return serviceLayer.findItem(id);
 
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateItem(@PathVariable int id, @Valid @RequestBody Item item) {
+    public void updateItem(@PathVariable int id, @Valid @RequestBody Item customer) {
         if (id < 1) {
             throw new IllegalArgumentException("Item Id must be greater than 0.");
         }
 
-        itemDao.updateItem(item);
+        serviceLayer.updateItem(customer);
     }
 
     @DeleteMapping("/{id}")
@@ -61,6 +60,6 @@ public class ItemController {
             throw new IllegalArgumentException("Item Id must be greater than 0.");
         }
 
-        itemDao.deleteItem(id);
+        serviceLayer.removeItem(id);
     }
 }
