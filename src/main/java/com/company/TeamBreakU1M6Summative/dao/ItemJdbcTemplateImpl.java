@@ -26,7 +26,7 @@ public class ItemJdbcTemplateImpl implements ItemDao {
             "select * from item where item_id = ?";
 
     private static final String SELECT_ALL_ITEMS_SQL =
-            "select * from items where item_id = ?";
+            "select * from item";
 
     private static final String UPDATE_ITEM_SQL =
             "update item set item_id = ? , name = ? , description = ? , daily rate = ?";

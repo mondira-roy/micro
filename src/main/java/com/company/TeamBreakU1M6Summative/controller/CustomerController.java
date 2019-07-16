@@ -1,7 +1,5 @@
 package com.company.TeamBreakU1M6Summative.controller;
 
-
-import com.company.TeamBreakU1M6Summative.dao.CustomerDao;
 import com.company.TeamBreakU1M6Summative.model.Customer;
 import com.company.TeamBreakU1M6Summative.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer")
+
 public class CustomerController {
 
     /**
@@ -21,19 +19,19 @@ public class CustomerController {
     @Autowired
     ServiceLayer serviceLayer;
 
-    @PostMapping("/")
+    @RequestMapping(value=  "/customer",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Customer createCustomer(@Valid @RequestBody Customer customer) {
         return serviceLayer.saveCustomer(customer);
     }
 
-    @GetMapping("/")
+    @RequestMapping(value=  "/customer",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Customer> getAllCustomers() {
         return serviceLayer.findAllCustomers();
     }
 
-    @GetMapping("/{id}")
+    @RequestMapping(value=  "/customer/{id}",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public Customer getCustomerById(@PathVariable int id) {
 
@@ -45,7 +43,7 @@ public class CustomerController {
 
     }
 
-    @PutMapping("/{id}")
+    @RequestMapping(value=  "/customer/{id}",method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updateCustomer(@PathVariable int id, @Valid @RequestBody Customer customer) {
         if (id < 1) {
@@ -55,7 +53,9 @@ public class CustomerController {
             serviceLayer.updateCustomer(customer);
     }
 
-    @DeleteMapping("/{id}")
+
+    @RequestMapping(value=  "/customer/{id}",method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
     public void deleteEmployee(@PathVariable int id){
         if (id < 1) {
             throw new IllegalArgumentException("Customer Id must be greater than 0.");

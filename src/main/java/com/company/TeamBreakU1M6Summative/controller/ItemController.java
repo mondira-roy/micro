@@ -10,7 +10,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/item")
 public class ItemController {
 
     /**
@@ -20,19 +19,19 @@ public class ItemController {
     @Autowired
     ServiceLayer serviceLayer;
 
-    @PostMapping("/")
+    @RequestMapping(value=  "/item",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Item createItem(@Valid @RequestBody Item customer) {
         return serviceLayer.saveItem(customer);
     }
 
-    @GetMapping("/")
+    @RequestMapping(value=  "/item",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Item> getAllItems() {
         return serviceLayer.findAllItems();
     }
 
-    @GetMapping("/{id}")
+    @RequestMapping(value=  "/item/{id}",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public Item getItemById(@PathVariable int id) {
 
@@ -44,7 +43,7 @@ public class ItemController {
 
     }
 
-    @PutMapping("/{id}")
+    @RequestMapping(value=  "/item/{id}",method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updateItem(@PathVariable int id, @Valid @RequestBody Item customer) {
         if (id < 1) {
@@ -54,7 +53,8 @@ public class ItemController {
         serviceLayer.updateItem(customer);
     }
 
-    @DeleteMapping("/{id}")
+    @RequestMapping(value=  "/item",method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
     public void deleteEmployee(@PathVariable int id){
         if (id < 1) {
             throw new IllegalArgumentException("Item Id must be greater than 0.");
