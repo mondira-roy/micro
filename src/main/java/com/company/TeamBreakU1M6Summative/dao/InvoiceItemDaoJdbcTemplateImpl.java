@@ -3,6 +3,7 @@ package com.company.TeamBreakU1M6Summative.dao;
 
 import com.company.TeamBreakU1M6Summative.model.InvoiceItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -63,11 +64,20 @@ public class InvoiceItemDaoJdbcTemplateImpl implements InvoiceItemDao {
     @Override
     public InvoiceItem getInvoiceItemById(int id) {
         String sql = "select * from invoice_item where invoice_item_id=?";
-        return jdbcTemplate.queryForObject(
-                sql,
-                this::MapTo,
-                id
-        );
+
+        try{
+            return jdbcTemplate.queryForObject(
+                    sql,
+                    this::MapTo,
+                    id
+            );
+
+        } catch (EmptyResultDataAccessException e){
+
+            return null;
+
+        }
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.company.TeamBreakU1M6Summative.dao;
 
 import com.company.TeamBreakU1M6Summative.model.Invoice;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +12,13 @@ import java.util.List;
 @Repository
 public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
 
-    private final String CREATE_INVOICE_SQL = "insert into invoice(customer_id, order_date, pickup_date, return_date, late_fee)" +
-                                                "values(?,?,?,?,?);";
+    private final String CREATE_INVOICE_SQL = "insert into invoice(customer_id, order_date, pickup_date, return_date," +
+            " late_fee)" +
+            "values(?,?,?,?,?);";
     private final String DELETE_INVOICE_SQL = "delete from invoice where invoice_id = ?";
 
-    private final String UPDATE_INVOICE_SQL =  "update invoice set order_date = ?, pickup_date = ?, return_date = ?, late_fee = ? where invoice_id = ?";
+    private final String UPDATE_INVOICE_SQL = "update invoice set order_date = ?, pickup_date = ?, return_date = ?, " +
+            "late_fee = ? where invoice_id = ?";
 
     private final String SELECT_INVOICE_BY_ID_SQL = "select * from invoice where invoice_id = ?";
 
@@ -32,12 +35,12 @@ public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
     @Override
     public Invoice createInvoice(Invoice invoice) {
         jdbcTemplate.update(CREATE_INVOICE_SQL,
-                            invoice.getCustomerId(),
-                            invoice.getOrderDate(),
-                            invoice.getPickupDate(),
-                            invoice.getReturnDate(),
-                            invoice.getInvoiceId(),
-                            invoice.getLateFee());
+                invoice.getCustomerId(),
+                invoice.getOrderDate(),
+                invoice.getPickupDate(),
+                invoice.getReturnDate(),
+                invoice.getInvoiceId(),
+                invoice.getLateFee());
         int id = jdbcTemplate.queryForObject("select last_insert_id", Integer.class);
         invoice.setInvoiceId(id);
         return invoice;
@@ -60,8 +63,16 @@ public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
 
     @Override
     public Invoice getInvoiceById(int id) {
-        return jdbcTemplate
-                .queryForObject(SELECT_INVOICE_BY_ID_SQL, this::mapRowToInvoice, id);
+        try {
+            return jdbcTemplate
+                    .queryForObject(SELECT_INVOICE_BY_ID_SQL, this::mapRowToInvoice, id);
+
+        } catch (EmptyResultDataAccessException e) {
+
+            return null;
+
+        }
+
 
     }
 
@@ -74,8 +85,16 @@ public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
 
     @Override
     public List<Invoice> getInvoiceByCustomer(int customerId) {
-        return jdbcTemplate
-                .query(SELECT_INVOICE_BY_CUSTOMER_SQL, this::mapRowToInvoice);
+        try {
+            return jdbcTemplate
+                    .query(SELECT_INVOICE_BY_CUSTOMER_SQL, this::mapRowToInvoice);
+
+        } catch (EmptyResultDataAccessException e) {
+
+            return null;
+
+        }
+
     }
 
     public Invoice mapRowToInvoice(ResultSet rs, int rowNumber) throws SQLException {
