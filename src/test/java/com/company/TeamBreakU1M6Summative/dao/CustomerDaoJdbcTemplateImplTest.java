@@ -50,7 +50,7 @@ public class CustomerDaoJdbcTemplateImplTest {
     }
 
     @Test
-    public void addGetDeleteCustomer(){
+    public void addGetDeleteCustomer() {
         Customer customer1 = new Customer();
         customer1.setFirstName("George");
         customer1.setLastName("Johnson");
@@ -118,5 +118,46 @@ public class CustomerDaoJdbcTemplateImplTest {
 
 
     }
-
 }
+
+//    @Test
+//    public void createCustomer() {
+//        Customer customer1 = new Customer();
+//        customer1.setFirstName("George");
+//        customer1.setLastName("Johnson");
+//        customer1.setEmail("gj@gmail.com");
+//        customer1.setCompany("Sony");
+//        customer1.setPhone("937-628-3947");
+//        customer1 = customerDao.createCustomer(customer1);
+//    }
+//
+//    @Test
+//    public void getCustomer() {
+//        Customer customer1 = new Customer();
+//        customer1.setFirstName("George");
+//        customer1.setLastName("Johnson");
+//        customer1.setEmail("gj@gmail.com");
+//        customer1.setCompany("Sony");
+//        customer1.setPhone("937-628-3947");
+//        customer1 = customerDao.createCustomer(customer1);
+//        Customer customerFromDb = customerDao.getCustomer(customer1.getCustomerId());
+//
+//        assertEquals(customer1, customerFromDb);
+//
+//    }
+//
+//
+//
+//
+//
+//    @Test
+//    public void deleteCustomer() {
+//        Customer customer1 = new Customer();
+//        customer1.setFirstName("George");
+//        customer1.setLastName("Johnson");
+//        customer1.setEmail("gj@gmail.com");
+//        customer1.setCompany("Sony");
+//        customer1.setPhone("937-628-3947");
+//        customer1 = customerDao.createCustomer(customer1);
+//    }
+//}
