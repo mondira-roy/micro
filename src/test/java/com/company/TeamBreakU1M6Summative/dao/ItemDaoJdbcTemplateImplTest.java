@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class ItemDaoJdbcTemplateImpl {
+public class ItemDaoJdbcTemplateImplTest {
 
     @Autowired
     ItemDao itemDao;
